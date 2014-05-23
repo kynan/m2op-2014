@@ -18,6 +18,9 @@ Slides: http://kynan.github.io/m2op-2014
 
   Many-core hardware has brought a **paradigm shift** to CSE, scientific **software needs to keep up**
 ]
+
+--
+
 .right-column[
 ## The Solution
 
@@ -377,7 +380,7 @@ L = v * f * dx
 
 # Solve the resulting finite-element equation
 p = Function(V)
-solve(a == L, p)
+*solve(a == L, p)
 ```
 
 ---
