@@ -2,7 +2,7 @@ class: center, middle, inverse
 
 # Firedrake: a High-level, Portable Finite Element Computation Framework
 
-### **Florian Rathgeber**<sup>1</sup>, Lawrence Mitchell<sup>1</sup>, David Ham<sup>1,2</sup>, Andrew McRae<sup>2</sup>, Fabio Luporini<sup>1</sup>, Gheorghe-teodor Bercea<sup>1</sup>, Paul Kelly<sup>1</sup>
+## **Florian Rathgeber**<sup>1</sup>, Lawrence Mitchell<sup>1</sup>, David Ham<sup>1,2</sup>, Andrew McRae<sup>2</sup>, Fabio Luporini<sup>1</sup>, Gheorghe-teodor Bercea<sup>1</sup>, Paul Kelly<sup>1</sup>
 
 Slides: http://kynan.github.io/m2op-2014
 
@@ -14,9 +14,9 @@ Slides: http://kynan.github.io/m2op-2014
 .left-column[
   ## Computational Science is hard
 
-  Unless you break it down with the right abstractions
+  Unless you break it down with the **right abstractions**
 
-  Many-core hardware has brought a paradigm shift to CSE, scientific software needs to keep up
+  Many-core hardware has brought a **paradigm shift** to CSE, scientific **software needs to keep up**
 ]
 .right-column[
 ## The Solution
@@ -24,9 +24,9 @@ Slides: http://kynan.github.io/m2op-2014
 ### High-level structure
 
   * Goal: producing high level interfaces to numerical computing
-  * PyOP2: a high-level interface to unstructured mesh based methods  
+  * **[PyOP2](https://github.com/OP2/PyOP2)**: a high-level interface to unstructured mesh based computations  
     *Efficiently execute kernels over an unstructured grid in parallel*
-  * Firedrake: a performance-portable finite-element computation framework  
+  * **[Firedrake](https://github.com/firedrakeproject/firedrake)**: a performance-portable finite-element computation framework  
     *Drive FE computations from a high-level problem specification*
 
 ### Low-level operations
@@ -147,7 +147,7 @@ void wrap_midpoint(int start, int end,
     arg1_0_vec[0] = arg1_0 + (arg1_0_map0_0[i * 3 + 0])* 2;
     arg1_0_vec[1] = arg1_0 + (arg1_0_map0_0[i * 3 + 1])* 2;
     arg1_0_vec[2] = arg1_0 + (arg1_0_map0_0[i * 3 + 2])* 2;
-*   midpoint(arg0_0 + i * 2, arg1_0_vec);
+*    midpoint(arg0_0 + i * 2, arg1_0_vec);  // call user kernel (inline)
   }
 }
 ```
@@ -180,7 +180,7 @@ void wrap_midpoint(int boffset, int nblocks,
         arg1_0_vec[0] = arg1_0 + (arg1_0_map0_0[i * 3 + 0])* 2;
         arg1_0_vec[1] = arg1_0 + (arg1_0_map0_0[i * 3 + 1])* 2;
         arg1_0_vec[2] = arg1_0 + (arg1_0_map0_0[i * 3 + 2])* 2;
-*       midpoint(arg0_0 + i * 2, arg1_0_vec);
+*        midpoint(arg0_0 + i * 2, arg1_0_vec);  // call user kernel (inline)
       }
     }
   }
@@ -298,7 +298,7 @@ void kernel(double A[1][1], double *x[2],
       + (((K00 * D10[ip][j] + K10 * D01[ip][j]))
         *((K00 * D10[ip][k] + K10 * D01[ip][k]))
       +  ((K01 * D10[ip][j] + K11 * D01[ip][j]))
-        *((K01 * D10[ip][k] + K11 * D01[ip][k])))) * W3[ip] * det;
+        *((K01 * D10[ip][k] + K11 * D01[ip][k]))))*W3[ip]*det;
   }
 }
 ```
