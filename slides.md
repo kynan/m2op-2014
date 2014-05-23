@@ -43,22 +43,23 @@ class: center, middle
 
 ---
 
-## Structure of scientific computations on unstructured meshes
+.pull-left[
+## Scientific computations on unstructured meshes
 
-* Independent *local operations* for each element of the mesh described as a *kernel*.
-* *Reductions* aggregating results from local operations to produce the final result.
+* Independent *local operations* for each element of the mesh described by a *kernel*.
+* *Reductions* aggregate contributions from local operations to produce the final result.
 
-## PyOP2
+### PyOP2
 
 A domain-specific language embedded in Python for parallel computations on unstructured meshes or graphs.
 
-### Unstructured meshes
-Meshes are described by *sets* and *maps* between them and can have data associated with them:
+### Unstructured mesh
+.scale[![PyOP2 mesh](images/op2_mesh.svg)]
+]
 
-![PyOP2 mesh](images/op2_mesh.svg)
+--
 
----
-
+.pull-right[
 ## PyOP2 Data Model
 
 ### Mesh topology
@@ -73,9 +74,10 @@ Meshes are described by *sets* and *maps* between them and can have data associa
 * Read / write / increment data accessed via maps
 
 ### Linear algebra
-* Matrix sparsities defined by mappings
+* Sparsities defined by mappings
 * Matrix data on sparsities
 * Kernels compute a local matrix – PyOP2 handles global assembly
+]
 
 ---
 
