@@ -444,23 +444,27 @@ def solve(equation, x):
 
 ---
 
-## Conclusions and Future Work
+## Summary and additional features
 
-### Conclusions
+### Summary
+* Two-layer abstraction for FEM computation from high-level descriptions
 * PyOP2: a high-level interface to unstructured mesh based methods  
   *Efficiently execute kernels over an unstructured grid in parallel*
 * Firedrake: a performance-portable finite-element computation framework  
   *Drive FE computations from a high-level problem specification*
-* Two-layer abstraction for FEM computation from UFL sources
-* Decoupling of UFL (FEM) and PyOP2 (parallelisation) layers
+* Decoupling of Firedrake (FEM) and PyOP2 (parallelisation) layers
 * Target-specific runtime code generation and JIT compilation
-* Performance portability for unstructured grid applications: FEM, non-FEM or combinations
+* Performance portability for unstructured mesh applications: FEM, non-FEM or combinations
+* Extensible framework beyond FEM computations (e.g. image processing)
 
-### Future Work
-* Auto-tuning of optimization parameters (e.g. iteration space)
-* Support for curved (isoparametric) finite elements
-* Kernel fusion, lazy evaluation
-* Alternative code generation / JIT approaches (LLVM)
+### Firedrake features not covered
+* Building meshes using PETSc DMPlex
+* Communication-computation overlap when running MPI-parallel
+* Using fieldsplit preconditioners for mixed problems
+* Solving PDEs on extruded (semi-structured) meshes
+* Solving PDEs on immersed manifolds
+* Automatic optimization of generated assembly kernels with COFFEE
+* ...
 
 ---
 
