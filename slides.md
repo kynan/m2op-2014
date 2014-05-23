@@ -320,6 +320,37 @@ void kernel(double A[1][1], double *x[2],
 
 ---
 
+.pull-left[
+## Firedrake architecture
+* High-level Python interface (mostly) compatible to FEniCS' DOLFIN
+* Purely a system for reasoning about variational forms
+* Unified form language (UFL) to describe weak forms of PDEs
+* FEniCS Form Compiler (FFC) translates forms into assembly kernels
+* PyOP2 as the parallel execution layer for assembly kernels
+  * responsible for storage, transfer and communication of data
+  * backend independent
+  * performance portable
+  * no code changes required when switching backend
+* PETSc used for
+  * meshes (DMPlex)
+  * nonlinear solves (SNES)
+  * linear solves (KSP, PC)
+* *No parallel code*: parallelism handled by PyOP2 + PETSc
+]
+
+--
+
+.pull-right[
+## Firedrake concepts
+* **Function:** field defined on a set of degrees of freedom (DoFs), data stored as PyOP2 `Dat`
+* **FunctionSpace:** Characterized by a family and and degree of FE basis functions, defined DOFs for function and relationship to mesh entities
+* **Mesh:** defines abstract topology by sets of entities and maps between them (PyOP2 data structures)
+
+.scale[![Firedrake types](images/firedrake_types.svg)]
+]
+
+---
+
 ## Driving Finite-element Computations in Firedrake
 
 Solving the Helmholtz equation in Python using Firedrake:
