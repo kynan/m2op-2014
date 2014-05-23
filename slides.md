@@ -412,35 +412,35 @@ p = Function(V)
 
 ## Finite element assembly and solve in Firedrake
 
-What goes on behind the scenes of the `solve` call (simplified example!):
+* Unified interface: Firedrake always solves nonlinear problems in resdiual form `F(u;v) = 0` using Newton-like methods (provided by PETSc SNES)
+* SNES requires two callbacks to evaluate residual and Jacobian:
+  * evaluate residual: `assemble(F, tensor=F_tensor)`
+  * evaluate Jacobian: `assemble(J, tensor=J_tensor, bcs=bcs)`
+* If Jacobian not provided by the user, Firedrake uses automatic differentiation:
+  ```
+  J = ufl.derivative(F, u)
+  ```
+* Transform linear problem with bilinear form `a`, linear form `L` into residual form:
+  ```
+  J = a
+  F = ufl.action(J, u) - L
+  ```
+  Jacobian known to be `a`, **always** solved in a single Newton (nonlinear) iteration
+
+--
+
 ```python
-from pyop2 import op2, ffc_interface
-
-def solve(equation, x):
-    # Invoke FFC to generate kernels for matrix and rhs assembly
-    lhs = ffc_interface.compile_form(equation.lhs, "lhs")[0]
-    rhs = ffc_interface.compile_form(equation.rhs, "rhs")[0]
-
-    # Omitted: extract coordinates (coords), connectivity (elem_node)
-    # and coefficients (field f)
-
-    # Construct OP2 matrix to assemble into
-    sparsity = op2.Sparsity((elem_node, elem_node), sparsity_dim)
-    mat = op2.Mat(sparsity, numpy.float64)
-    b = op2.Dat(nodes, np.zeros(nodes.size))
-
-    # Assemble lhs, rhs and solve linear system
-    op2.par_loop(lhs, elements,
-                 mat(op2.INC, (elem_node[op2.i[0]], elem_node[op2.i[1]])),
-                 coords(op2.READ, elem_node))
-    op2.par_loop(rhs, elements,
-                 b(op2.INC, elem_node[op2.i[0]]),
-                 coords(op2.READ, elem_node),
-                 f(op2.READ, elem_node))
-
-    # Solve the assembled sparse linear system of equations
-    op2.solve(mat, x, b)
+def solve(problem, solution, bcs=None, J=None, solver_parameters=None)
 ```
+
+1. If problem is linear, transform into residual form
+2. If no Jacobian provided, compute Jacobian by automatic differentiation
+3. Set up PETSc SNES solver (parameters user configurable)
+4. Assign residual and Jacobian forms for SNES callbacks
+5. Solve nonlinear problem. For each nonlinear iteration:
+  a) assemble Jacobian matrix
+  b) assemble residual vector
+  c) solve linear system using PETSc KSP
 
 ---
 
