@@ -498,7 +498,7 @@ def solve(problem, solution, bcs=None, J=None, solver_parameters=None)
 
 ## Thank you!
 
-Contact: Florian Rathgeber, [@frathgeber](https://twitter.com/frathgeber), f.rathgeber@imperial.ac.uk
+Contact: Florian Rathgeber, [@frathgeber](https://twitter.com/frathgeber), <f.rathgeber@imperial.ac.uk>
 
 ### Resources
 
@@ -516,6 +516,6 @@ Contact: Florian Rathgeber, [@frathgeber](https://twitter.com/frathgeber), f.rat
   * **UFL** https://bitbucket.org/mapdes/ufl
   * **FFC** https://bitbucket.org/mapdes/ffc
 
-**This talk** is available at http://kynan.github.io/m2op-2014
+**This talk** is available at http://kynan.github.io/m2op-2014 ([source](https://github.com/kynan/m2op-2014))
 
 Slides created with [remark](http://remarkjs.com)
